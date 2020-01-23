@@ -22,3 +22,14 @@ SetUserLanguage();
 Trans("key");
 Translate("key");
 ```
+
+## Advanced Usage
+* Change the language manually
+```php
+SetLanguage(LANGUAGE_KEY);
+```
+
+* Get the language object saved inside the $_SESSION["language"]
+```php
+GetLanguage();
+```
