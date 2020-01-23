@@ -33,3 +33,13 @@ SetLanguage(LANGUAGE_KEY);
 ```php
 GetLanguage();
 ```
+
+## Language file example
+```
+language_key=en
+language_english=English
+language_local=English
+
+test=It works!
+#Add more words by adding key=word
+```
