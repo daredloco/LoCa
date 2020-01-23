@@ -1,0 +1,5 @@
+language_key=en
+language_english=English
+language_local=English
+
+test=It works!
