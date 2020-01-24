@@ -1,6 +1,10 @@
 # LoCa
  Localization Script for PHP
 
+## Requirements
+* PHP 5.4
+* Sessions enabled
+
 ## Usage
 1) Add the loca.php to your code
 ```php
