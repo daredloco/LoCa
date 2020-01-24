@@ -11,7 +11,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 //LOADS THE LANGUAGES FROM DIRECTORY $dir and puts the Language Objects inside the $_SESSION['languages'] array
-function LoadLanguages($dir){
+function LoadLanguages($dir, $reload = false){
+	if(!$reload && !is_null($_SESSION['languages'])){
+		return;
+	}
 	$files = array_diff(scandir($dir), array('.', '..'));
 	$_SESSION['languages'] = [];
 	foreach($files as &$fname){
