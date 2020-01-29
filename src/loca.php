@@ -1,7 +1,7 @@
 <?PHP
 /*
 LoCa Localization System
-Version: 2.0
+Version: 2.5
 © 2015-2020 Roman Wanner
 */
 
@@ -10,15 +10,24 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+//INCLUDES THE bbcodes.php FILE
+$loca_usebbcode = true;
+$loca_bbcodelocation = dirname(__FILE__)."/bbcodes.php";
+if($loca_usebbcode){
+	if(!@include_once($loca_bbcodelocation)){ $loca_usebbcode = false; echo "<script>console.log('LoCa: [WARNING] Couldn't find bbcodes.php!');</script>";}
+}
+
 //LOADS THE LANGUAGES FROM DIRECTORY $dir and puts the Language Objects inside the $_SESSION['languages'] array
 function LoadLanguages($dir, $reload = false){
+	global $loca_usebbcode;
+	
 	if(!$reload && !is_null($_SESSION['languages'])){
 		return;
 	}
 	$files = array_diff(scandir($dir), array('.', '..'));
 	$_SESSION['languages'] = [];
 	foreach($files as &$fname){
-		$lang = new Language($dir.'/'.$fname);
+		$lang = new Language($dir.'/'.$fname, $loca_usebbcode);
 		if($lang->lkey != null && $lang->lkey != "" && count($lang->dict) > 0){
 			$_SESSION['languages'][$lang->lkey] = $lang;
 		}
@@ -82,18 +91,18 @@ class Language{
 	public $local;
 	public $dict = [];
 	
-	public function __construct($file){
-		//require_once(dirname(__FILE__).'/functions.php');
+	public function __construct($file, $usebbcode = false){
 		if(!file_exists($file)){
 			return;
 		}
 		$handle = fopen($file, "r");
 		if ($handle) {
+			$multiline = false;
 			while (($line = fgets($handle)) !== false) {
 				if(startsWith($line,"language_key=")){
 					$this->lkey = trim(str_replace("language_key=","",$line));
 				}elseif(startsWith($line,"#") || $line == "" || strpos($line,"=") === false){
-					//IGNORE COMMENTS, INVALID LINES AND EMPTY LINES
+				//IGNORE COMMENTS, INVALID LINES AND EMPTY LINES
 				}elseif(startsWith($line,"language_english=")){
 					$this->english = trim(str_replace("language_english=","",$line));
 				}elseif(startsWith($line,"language_local=")){
@@ -101,6 +110,10 @@ class Language{
 				}else{
 					$wkey = explode("=",$line)[0];
 					$wval = str_replace($wkey."=","",$line);
+					//bbcodes handler
+					if($usebbcode){
+						$wval = bb_parse($wval);
+					}
 					$this->dict[$wkey] = $wval;
 				}
 			}
