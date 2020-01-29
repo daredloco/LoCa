@@ -2,4 +2,4 @@ language_key=en
 language_english=English
 language_local=English
 
-test=It works!
+test=It [b]WORKS[/b]![n]With [u]new lines[/u] and formatting!

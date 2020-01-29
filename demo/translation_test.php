@@ -5,10 +5,11 @@
 require_once('../src/loca.php');
 
 //Loads the languages from the directory (Change './localization/' to the directory of your localization files)
-LoadLanguages('./localization/');
+LoadLanguages('./localization/',true);
 
 //Sets the Language to the Users language if logged in (use $_SESSION['ulang'] with an ISO-2 language to set the language)
 SetUserLanguage();
+
 
 ?>
 <head>
@@ -17,7 +18,7 @@ SetUserLanguage();
 
 <body>
 <?PHP
-echo '<b>'.Trans("test").'</b>';
+echo Trans("test");
 ?>
 </body>
 </html>
