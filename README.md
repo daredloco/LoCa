@@ -8,12 +8,12 @@
 ## Usage
 1) Add the loca.php to your code
 ```php
-include(PATH_TO_LOCA);
+include("loca.php");
 ```
 
 2) Load the localization files from a directory
 ```php
-LoadLanguages(DIRECTORY_OF_THE_FILES);
+LoadLanguages("./localization/);
 ```
 
 3) Set the language to the browser language if available
@@ -26,6 +26,40 @@ SetUserLanguage();
 Trans("key");
 Translate("key");
 ```
+
+## Using loca-json
+The JSON version works a little bit different than the standard version.
+Point 1-3 are the same, but to translate the word I'll give you an example here:
+
+1) Create the JSON File
+```json
+{
+    "Settings": [       
+        {
+            "key": "en",
+            "english": "English",
+            "local": "English",
+            "author": "Roman Wanner",
+            "version": "1.0"
+        }
+    ],
+
+    "Page1": [
+        {            
+            "test": "[b]Singleline:[/b][n]Its working!",
+            "bb": "[b]Mutliline with bbcodes:[/b][n][i]With[/i][n][u]bb[/u][n][url=https://www.rowa-digital.ch]codes[/url]!"
+        }
+    ]
+}
+```
+The "Settings" part is necessary and needs to be added to every translation. After that comes the different pages (in this case "Page1").
+
+2) To translate you have 2 choices:
+```php
+Trans("Page1_test"); //translates the "test" inside the "Page1" parent.
+Trans("test","Page1"); //You should use this version, the second argument is the "page", the first is the "key".
+```
+This way you can use the same keys inside diferent pages and sort them easily
 
 ## Advanced Usage
 * Change the language manually
