@@ -101,13 +101,11 @@ class Language{
 		$json = json_decode($content,true); //decodes the $content string into an array
 		foreach($json as $key=>$val) {
 			if($key == "settings" || $key == "Settings"){
-				foreach($val as $fkey=>$fval){
-					$this->lkey = $fval["key"];
-					$this->english = $fval["english"];
-					$this->local = $fval["local"];
-					$this->author = $fval["author"];
-					$this->version = $fval["version"];
-				}			
+				$this->lkey = $val[0]["key"];
+				$this->english = $val[0]["english"];
+				$this->local = $val[0]["local"];
+				$this->author = $val[0]["author"];
+				$this->version = $val[0]["version"];
 			}else{			
 				foreach($val[0] as $dkey=>$dval){
 					$this->dict[$key."_".$dkey] = bb_parse($dval);
