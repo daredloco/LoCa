@@ -1,0 +1,18 @@
+{
+    "Settings": [       
+        {
+            "key": "en",
+            "english": "English",
+            "local": "English",
+            "author": "Roman Wanner",
+            "version": "1.0"
+        }
+    ],
+
+    "Page1": [
+        {            
+            "test": "[b]Singleline:[/b][n]Its working!",
+            "bb": "[b]Mutliline with bbcodes:[/b][n][i]With[/i][n][u]bb[/u][n][url=https://www.rowa-digital.ch]codes[/url]!"
+        }
+    ]
+}
