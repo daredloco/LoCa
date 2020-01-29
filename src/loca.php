@@ -1,7 +1,7 @@
 <?PHP
 /*
 LoCa Localization System
-Version: 2.0
+Version: 2.5
 © 2015-2020 Roman Wanner
 */
 
@@ -9,6 +9,12 @@ Version: 2.0
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+//INCLUDES THE bbcodes.php FILE
+$loca_usesbbcode = true;
+$loca_bbcodelocation = "bbcodes.php";
+if(!@include_once($loca_bbcodelocation)){ $loca_usebbcode = false; echo "<script>console.log('LoCa: [WARNING] Couldn't find bbcodes.php!');</script>";}
+
 
 //LOADS THE LANGUAGES FROM DIRECTORY $dir and puts the Language Objects inside the $_SESSION['languages'] array
 function LoadLanguages($dir, $reload = false){
@@ -101,6 +107,10 @@ class Language{
 				}else{
 					$wkey = explode("=",$line)[0];
 					$wval = str_replace($wkey."=","",$line);
+					//bbcodes handler
+					if($loca_usebbcode){
+						$wval = bb_parse($wval);
+					}
 					$this->dict[$wkey] = $wval;
 				}
 			}
