@@ -1,0 +1,10 @@
+{
+    "language_key": "en",
+    "language_english": "English",
+    "language_local": "English",
+    "language_author": "Roman Wanner",
+    "language_version": "1.0",
+
+    "test": "It's working!",
+    "bb": "[b]Even[/b][n][u]BBcode[/u][n][i]is [url=https://www.rowa-digital.ch]working[/url][/i]"
+}

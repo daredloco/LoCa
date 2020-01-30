@@ -17,7 +17,7 @@ Version: 1.1
                 case 'color': $replacement = "<span style=\"color: $param;\">$innertext</span>"; break;
                 case 'center': $replacement = "<div class=\"centered\">$innertext</div>"; break;
                 case 'quote': $replacement = "<blockquote>$innertext</blockquote>" . $param? "<cite>$param</cite>" : ''; break;
-                case 'url': $replacement = '<a href="' . ($param? $param : $innertext) . "\">$innertext</a>"; break;
+                case 'url': $replacement = '<a target="_blank" href="' . ($param? $param : $innertext) . "\">$innertext</a>"; break;
                 case 'img':
                     list($width, $height) = preg_split('`[Xx]`', $param);
                     $replacement = "<img src=\"$innertext\" " . (is_numeric($width)? "width=\"$width\" " : '') . (is_numeric($height)? "height=\"$height\" " : '') . '/>';

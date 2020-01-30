@@ -11,14 +11,14 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 //INCLUDES THE bbcodes.php FILE
-$loca_usebbcode = true;
-$loca_bbcodelocation = dirname(__FILE__)."/bbcodes.php";
+if(is_null(@$loca_usebbcode)){ $loca_usebbcode = true;}
+if(is_null(@$loca_bbcodelocation)){ $loca_bbcodelocation = dirname(__FILE__)."/bbcodes.php";}
 if($loca_usebbcode){
 	if(!@include_once($loca_bbcodelocation)){ $loca_usebbcode = false; echo "<script>console.log('LoCa: [WARNING] Couldn't find bbcodes.php!');</script>";}
 }
 
 //LOADS THE LANGUAGES FROM DIRECTORY $dir and puts the Language Objects inside the $_SESSION['languages'] array
-function LoadLanguages($dir, $reload = false){
+function LoadLanguages($dir, $grouped = true, $reload = false){
 	global $loca_usebbcode;
 	
 	if(!$reload && !is_null($_SESSION['languages'])){
@@ -27,7 +27,7 @@ function LoadLanguages($dir, $reload = false){
 	$files = array_diff(scandir($dir), array('.', '..'));
 	$_SESSION['languages'] = [];
 	foreach($files as &$fname){
-		$lang = new Language($dir.'/'.$fname, $loca_usebbcode);
+		$lang = new Language($dir.'/'.$fname, $grouped, $loca_usebbcode);
 		if($lang->lkey != null && $lang->lkey != "" && count($lang->dict) > 0){
 			$_SESSION['languages'][$lang->lkey] = $lang;
 		}
@@ -92,13 +92,35 @@ class Language{
 	public $author;
 	public $version;
 	public $dict = [];
+	public $isgrouped;
 	
-	public function __construct($file, $usebbcode = false){
+	public function __construct($file, $grouped = true, $usebbcode = true){
 		if(!file_exists($file)){
 			return;
 		}
 		$content = file_get_contents($file); //Reads out the data of the file as a string
 		$json = json_decode($content,true); //decodes the $content string into an array
+		$this->isgrouped = $grouped;
+		//Load as ungrouped
+		if(!$grouped){
+			foreach($json as $key=>$val){
+				if($key == "language_key"){
+					$this->lkey = $val;
+				}else if($key == "language_english"){
+					$this->english = $val;
+				}else if($key == "language_local"){
+					$this->local = $val;
+				}else if($key == "language_author"){
+					$this->author = $val;
+				}else if($key == "language_version"){
+					$this->version = $val;
+				}else{
+					if($usebbcode){ $this->dict[$key] = bb_parse($val);}else{ $this->dict[$key] = $val;}
+				}
+			}
+			return;
+		}
+		//Load as grouped
 		foreach($json as $key=>$val) {
 			if($key == "settings" || $key == "Settings"){
 				$this->lkey = $val[0]["key"];
@@ -108,14 +130,14 @@ class Language{
 				$this->version = $val[0]["version"];
 			}else{			
 				foreach($val[0] as $dkey=>$dval){
-					$this->dict[$key."_".$dkey] = bb_parse($dval);
+					if($usebbcode){ $this->dict[$key."_".$dkey] = bb_parse($dval);}else{ $this->dict[$key."_".$dkey] = $dval;}
 				}
 			}
 		}
 	}
 	
 	public function Trans($key, $parent = ""){
-		if($parent != ""){ $key = $parent."_".$key;}
+		if($parent != "" && $this->isgrouped){ $key = $parent."_".$key;}
 		if(array_key_exists($key,$this->dict) === true){
 			return $this->dict[$key];
 		}
