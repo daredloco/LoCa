@@ -74,14 +74,14 @@ This way you can use the same keys inside diferent pages and sort them easily
     "bb": "[b]Even[/b][n][u]BBcode[/u][n][i]is [url=https://www.rowa-digital.ch]working[/url][/i]"
 }
 ```
-The variables with "language_" are nevessary and need to be added to every localization. After that are the variables to translate. Other than the grouped files, the ungrouped files don't have pages and need to be loaded different
+The variables with "language_" are necessary and they need to be added to every localization. After that are the variables to translate.
 
-2.a) Other than sorted JSON files, unsorted ones need to be loaded in another way
+2.a) Other than grouped JSON files, ungrouped ones need to be loaded in another way
 ```php
 LoadLanguages('./ungrouped-json/', false, true); //First argument is directory, second is if its grouped or not and third is if it should be reloaded every refresh or if it should use the data from the session. (You should use TRUE for debug purposes!)
 SetUserLanguage(); //Sets the User language, this is important and needs to be done everything the Languages are reloaded
 ```
- 3.) Unsorted JSON files do not have "parents", so you can simply translate a word by entering the key
+ 3.) Ungrouped JSON files do not have "parents", so you can simply translate a word by entering the key
  ```php
  Trans("test");
  ```
