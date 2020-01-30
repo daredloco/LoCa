@@ -29,7 +29,7 @@ Translate("key");
 
 ## Using loca-json
 The JSON version works a little bit different than the standard version.
-Point 1-3 are the same, but to translate the word I'll give you an example here:
+Step 1-3 are the same, but to translate the word I'll give you an example here:
 
 1) Create a grouped JSON File
 ```json
