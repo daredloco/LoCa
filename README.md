@@ -31,7 +31,7 @@ Translate("key");
 The JSON version works a little bit different than the standard version.
 Point 1-3 are the same, but to translate the word I'll give you an example here:
 
-1) Create the JSON File
+1) Create a grouped JSON File
 ```json
 {
     "Settings": [       
@@ -52,7 +52,7 @@ Point 1-3 are the same, but to translate the word I'll give you an example here:
     ]
 }
 ```
-The "Settings" part is necessary and needs to be added to every translation. After that comes the different pages (in this case "Page1").
+The "Settings" part is necessary and needs to be added to every localization. After that comes the different pages (in this case "Page1").
 
 2) To translate you have 2 choices:
 ```php
@@ -61,6 +61,31 @@ Trans("test","Page1"); //You should use this version, the second argument is the
 ```
 This way you can use the same keys inside diferent pages and sort them easily
 
+1.a) Create an ungrouped JSON File
+```json
+{
+    "language_key": "en",
+    "language_english": "English",
+    "language_local": "English",
+    "language_author": "Roman Wanner",
+    "language_version": "1.0",
+
+    "test": "It's working!",
+    "bb": "[b]Even[/b][n][u]BBcode[/u][n][i]is [url=https://www.rowa-digital.ch]working[/url][/i]"
+}
+```
+The variables with "language_" are nevessary and need to be added to every localization. After that are the variables to translate. Other than the grouped files, the ungrouped files don't have pages and need to be loaded different
+
+2.a) Other than sorted JSON files, unsorted ones need to be loaded in another way
+```php
+LoadLanguages('./ungrouped-json/', false, true); //First argument is directory, second is if its grouped or not and third is if it should be reloaded every refresh or if it should use the data from the session. (You should use TRUE for debug purposes!)
+SetUserLanguage(); //Sets the User language, this is important and needs to be done everything the Languages are reloaded
+```
+ 3.) Unsorted JSON files do not have "parents", so you can simply translate a word by entering the key
+ ```php
+ Trans("test");
+ ```
+ 
 ## Advanced Usage
 * Change the language manually
 ```php
