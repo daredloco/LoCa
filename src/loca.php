@@ -1,7 +1,7 @@
 <?PHP
 /*
 LoCa Localization System
-Version: 2.5
+Version: 3.0
 © 2015-2020 Roman Wanner
 */
 
@@ -77,11 +77,11 @@ function GetLanguage(){
 }
 
 //TRANSLATES THE WORD WITH THE KEY $key INSIDE THE ACTUAL LANGUAGE AT $_SESSION['language']
-function Trans($key){
+function Trans($key, $libarr = null){
 	if(is_null(@$_SESSION['language'])){
 		return '{NO_LANGUAGE_FILE}';
 	}
-	return $_SESSION['language']->Trans($key);
+	return $_SESSION['language']->Trans($key, $libarr);		
 }
 
 //LANGUAGE OBJECT, READS OUT THE FILE AND TRANSFORMS IT TO AN USABLE OBJECT
@@ -123,8 +123,17 @@ class Language{
 		} 
 	}
 	
-	public function Trans($key){
+	public function Trans($key, $libarr = null){
 		if(array_key_exists($key,$this->dict) === true){
+			if(is_null($libarr)){
+				return $this->dict[$key];	
+			}else{
+				$str = $this->dict[$key];
+				foreach($libarr as $lkey=>$lval){
+					$str = str_replace($lkey,$lval,$str);
+				}
+				return $str;
+			}
 			return $this->dict[$key];
 		}
 		return "{".$key."}";

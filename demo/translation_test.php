@@ -18,7 +18,15 @@ SetUserLanguage();
 
 <body>
 <?PHP
-echo Trans("test");
+//Standard translation
+echo "Standard translation: ".Trans("test");
+echo "<br>";
+//Translation with replace
+$arr = [
+	"{REPLACE}"=>"arrays"
+	"{MORE}"=>"It's awesome!"
+];
+echo "Translation with replace: ".Trans("replace",$arr);
 ?>
 </body>
 </html>

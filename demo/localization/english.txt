@@ -3,3 +3,4 @@ language_english=English
 language_local=English
 
 test=It [b]WORKS[/b]![n]With [u]new lines[/u] and formatting!
+replace=It also works with {REPLACE}! {MORE}

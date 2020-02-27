@@ -77,11 +77,11 @@ function GetLanguage(){
 }
 
 //TRANSLATES THE WORD WITH THE KEY $key INSIDE THE ACTUAL LANGUAGE AT $_SESSION['language']
-function Trans($key, $parent = ""){
+function Trans($key, $parent = "", $libarr = null){
 	if(is_null(@$_SESSION['language'])){
 		return '{NO_LANGUAGE_FILE}';
 	}
-	return $_SESSION['language']->Trans($key,$parent);
+	return $_SESSION['language']->Trans($key,$parent, $libarr);
 }
 
 //LANGUAGE OBJECT, READS OUT THE FILE AND TRANSFORMS IT TO AN USABLE OBJECT
@@ -136,10 +136,18 @@ class Language{
 		}
 	}
 	
-	public function Trans($key, $parent = ""){
+	public function Trans($key, $parent = "", $libarr = null){
 		if($parent != "" && $this->isgrouped){ $key = $parent."_".$key;}
 		if(array_key_exists($key,$this->dict) === true){
-			return $this->dict[$key];
+			if(is_null($libarr)){
+				return $this->dict[$key];
+			}else{
+				$str = $this->dict[$key];
+				foreach($libarr as $lkey=>$lval){
+					$str = str_replace($lkey,$lval,$str);
+				}
+				return $str;
+			}
 		}
 		return "{".$key."}";
 	}
