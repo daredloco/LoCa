@@ -27,6 +27,20 @@ Trans("key");
 Translate("key");
 ```
 
+5) Translate a word with replacing functionality (Replaces the {REPLACE} with 'first', {MORE} with 'second' and so on)
+```php
+$arr = [
+	"{REPLACE}"=>"first"
+	"{MORE}"=>"second"
+];
+echo Trans("key",$arr);
+```
+Hint: loca-json has the same function and you can simply use it by writing:
+```php
+Trans("parent_key","",$arr);
+Trans("key","parent",$arr);
+```
+
 ## Using loca-json
 The JSON version works a little bit different than the standard version.
 Step 1-3 are the same, but to translate the word I'll give you an example here:
