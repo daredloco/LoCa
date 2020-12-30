@@ -28,13 +28,13 @@ function LoadLanguages($dir, $reload = false){
 	$_SESSION['languages'] = [];
 	foreach($files as &$fname){
 		$lang = new Language($dir.'/'.$fname, $loca_usebbcode);
-		if($lang->lkey != null && $lang->lkey != "" && count($lang->dict) > 0){
+		if($lang->lkey != null && $lang->lkey != "" && $lang->english != "" && $lang->local != "" && $lang->author != "" && $lang->version != "" && count($lang->dict) > 0){
 			$_SESSION['languages'][$lang->lkey] = $lang;
 		}
 	}
 }
 
-//SETS THE USERSL LANGUAGE FOR THIS SESSION (CHANGE IT SO IT WILL READ OUT THE LANGUAGE OF THE LOGGED IN USER OR THE BROWSER LANGUAGE)
+//SETS THE USERS LANGUAGE FOR THIS SESSION (CHANGE IT SO IT WILL READ OUT THE LANGUAGE OF THE LOGGED IN USER OR THE BROWSER LANGUAGE)
 //RETURNS true IF LANGUAGE WAS SET AND false IF NOT
 function SetLanguage($key = ""){
 	if($key == ""){
@@ -89,6 +89,8 @@ class Language{
 	public $lkey;
 	public $english;
 	public $local;
+	public $author;
+	public $version;
 	public $dict = [];
 	
 	public function __construct($file, $usebbcode = false){
@@ -107,6 +109,10 @@ class Language{
 					$this->english = trim(str_replace("language_english=","",$line));
 				}elseif(startsWith($line,"language_local=")){
 					$this->local = trim(str_replace("language_local=","",$line));
+				}elseif(startsWith($line,"language_author=")){
+					$this->author = trim(str_replace("language_author=","",$line));
+				}elseif(startsWith($line,"language_version=")){
+					$this->version = trim(str_replace("language_version=","",$line));
 				}else{
 					$wkey = explode("=",$line)[0];
 					$wval = str_replace($wkey."=","",$line);
