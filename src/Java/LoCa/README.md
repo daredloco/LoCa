@@ -1,3 +1,8 @@
+
+## Requirements
+
+JAVA 1.7
+
 ## Usage
 
 Initialize
@@ -25,7 +30,3 @@ loca.translate("test3", alist);
 ```
 
 For informations about the format of the localization file, check out the localizationtest/english.txt file!
-
-## Requirements
-
-JAVA 1.7
