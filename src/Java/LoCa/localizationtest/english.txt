@@ -1,0 +1,11 @@
+##LANGUAGE INFORMATIONS##
+language_key=en
+language_english=English
+language_local=English
+language_author=daRedLoCo
+language_version=1.0
+
+##TEST VARIABLES##
+test=It's working!
+test2=It's {placeholder}
+test3={p1} {p2}
