@@ -1,5 +1,12 @@
 # LoCa
- Localization Script for PHP
+ Localization Script for PHP, C#, JAVA and Python
+
+## Readmes
+[C# Readme](../master/src/CSharp)
+
+[JAVA Readme](../master/src/Java/LoCa/README.md)
+
+Python Readme (Work in Progress)
 
 ## Requirements
 * PHP 5.4+
