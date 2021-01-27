@@ -29,4 +29,4 @@ alist.add(new KeyValuePair<String,String>("{p2}", "working!"));
 loca.translate("test3", alist);
 ```
 
-For informations about the format of the localization file, check out [this file](../LoCa/localizationtest/english.txt)!
+For informations about the format of the localization file, check out [this file](../localizationtest/english.txt)!
