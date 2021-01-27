@@ -1,4 +1,4 @@
-package daredloco.helpers;
+package ch.daredloco.helpers;
 
 public class LoCaException extends Exception {
     private static final long serialVersionUID = 1L;

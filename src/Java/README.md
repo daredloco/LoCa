@@ -1,7 +1,7 @@
 
 ## Requirements
 
-JAVA 1.7
+JAVA 1.7+
 
 ## Usage
 

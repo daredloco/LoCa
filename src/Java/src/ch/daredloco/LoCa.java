@@ -1,4 +1,4 @@
-package daredloco;
+package ch.daredloco;
 
 import java.io.*;
 import java.net.URI;
@@ -6,15 +6,13 @@ import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.*;
 
-import daredloco.helpers.LoCaException;
+import ch.daredloco.helpers.LoCaException;
 
 public class LoCa {
 
     /*
-    * TODO
-    * 1) Make the basic LoCa functions work
-    * 2) Add placeholders like {TEXT1} etc. for easy translation (Just like the C# LoCa library)
-    * 3) Make errorhandling (if language not exists for example or if no language exists at all)
+    * TODO:
+    * Make errorhandling (if language not exists for example or if no language exists at all)
     */
     private Language language;
     private Language defaultLanguage;
@@ -41,7 +39,12 @@ public class LoCa {
         languages = new HashMap<String, Language>();
 
         File folder = new File(location);
-        for(File file : folder.listFiles())
+        var folderFiles = folder.listFiles();
+        if(folderFiles == null)
+        {
+            throw new LoCaException("Couldn't find any files inside folder \"" + location + "\"");
+        }
+        for(File file : folderFiles)
         {
             if(file.getAbsolutePath().endsWith(".txt"))
             {
@@ -142,7 +145,7 @@ public class LoCa {
      * @param placeHolder The placeholder KeyValuePair
      * @return The translated value, the translated value from the default language or a placeholder if it couldn't be found
      */
-    public String translate(String k, daredloco.helpers.KeyValuePair<String, String> placeHolder)
+    public String translate(String k, ch.daredloco.helpers.KeyValuePair<String, String> placeHolder)
     {
         String translated = translate(k);
         translated = translated.replace(placeHolder.key, placeHolder.value);   
@@ -155,10 +158,10 @@ public class LoCa {
      * @param placeHolders The placeholder KeyValuePair
      * @return The translated value, the translated value from the default language or a placeholder if it couldn't be found
      */
-    public String translate(String k, List<daredloco.helpers.KeyValuePair<String, String>> placeHolders)
+    public String translate(String k, List<ch.daredloco.helpers.KeyValuePair<String, String>> placeHolders)
     {
         String translated = translate(k);
-        for (daredloco.helpers.KeyValuePair<String,String> kvp : placeHolders) {
+        for (ch.daredloco.helpers.KeyValuePair<String,String> kvp : placeHolders) {
             translated = translated.replace(kvp.key, kvp.value);   
         }
         return translated;
@@ -294,3 +297,4 @@ public class LoCa {
         }
     }
 }
+

@@ -1,10 +1,10 @@
 import java.io.File;
 import java.util.*;
-import daredloco.helpers.KeyValuePair;
+import ch.daredloco.helpers.*;
 
 public class Example {
     public static void main(String[] args) throws Exception {
-        daredloco.LoCa loca = new daredloco.LoCa(new File("localizationtest").getAbsolutePath());
+        ch.daredloco.LoCa loca = new ch.daredloco.LoCa(new File("localizationtest").getAbsolutePath());
         System.out.println(loca.translate("test"));
         System.out.println(loca.translate("test2", new KeyValuePair<String,String>("{placeholder}","working as well!")));
         ArrayList<KeyValuePair<String,String>> alist = new ArrayList<KeyValuePair<String,String>>();
