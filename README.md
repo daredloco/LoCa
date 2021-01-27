@@ -6,6 +6,6 @@
 
 [**C# Readme**](../master/src/CSharp/README.md)
 
-[**JAVA Readme**](../master/src/Java/LoCa/README.md)
+[**JAVA Readme**](../master/src/Java/README.md)
 
 **Python Readme (Work in Progress)**
